@@ -1,0 +1,32 @@
+---
+title: "My First Cohesive Analysis"
+author: "Ben Woodruff"
+date: "9/20/2021"
+output: 
+  html_document:
+    code_folding: show
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Evaluating the function $f(x) = x^2$.
+
+```{r}
+f <- function(x){x^2}
+```
+
+We can evaluate the funtion $$f(x)=2$$ (using $\LaTeX$) at $x=3$ to obtain `r f(3)`, as shown below. 
+
+```{r }
+f(3)
+```
+
+Note that we can easily change this to $x=5$ to obtain $f(5) = `r f(5)`$, shown below. 
+
+```{r }
+f(5)
+```
+ 
+ Notice that there are sentences introducing every bit of code, explaining how it belongs to the rest of the work. 
