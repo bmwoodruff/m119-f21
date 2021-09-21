@@ -1,0 +1,23 @@
+---
+title: "Example Project"
+author: "Ben Woodruff"
+date: "9/21/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Intro
+
+My introduction.
+
+I need sentences here. 
+```{r }
+library(data4led)
+dist <- led_time(2100)
+hist(dist$percent_intensity,freq = FALSE)
+```
+ Then something here to explain what I see above. 
+ 
