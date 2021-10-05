@@ -59,7 +59,7 @@ plot(x,f5(x,a=7,b=9),type="l")
 
 
 library(data4led)
-bulb <- led_bulb(1,seed = 1234)
+bulb <- led_bulb(1,seed = 123)
 
 t <- bulb$hours
 y1 <- bulb$percent_intensity
@@ -93,7 +93,8 @@ lines(x,yM,col=2)
 
 
 
-
+#When working with f0, remember that constants functions can be tricky. 
+#This code comes from Sept 20.
 f.c1 <- function(x){
   4
 }
