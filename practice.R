@@ -1,10 +1,10 @@
 #This portion of code plots bot the likelihood and loglikelihood for the model f(x,a0,a1)=a0+a1*x. 
 library(data4led)
-bulb <- led_bulb(1,123)
 
 f <- function(x,a0=100,a1){a0+a1*x}
 
-likelihood <-function(a0=100,a1){
+likelihood <-function(a0=100,a1,seed=123){
+  bulb <- led_bulb(1,seed)
   x <- bulb$hours
   y <- bulb$percent_intensity
   residual_dist <- function(x,a0,a1){1/sqrt(2*pi)*exp(-(y-f(x,a0,a1))^2/2)}
