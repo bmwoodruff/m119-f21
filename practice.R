@@ -14,6 +14,6 @@ likelihood <-function(a0=100,a1,seed=123){
 
 a0 <- 100
 a1 <- seq(0,0.001,0.000001)
-plot(a1,likelihood(a0,a1), type = "l")
-plot(a1,log(likelihood(a0,a1)),type = "l")
+plot(a1,likelihood(a0=100,a1), type = "l")
+plot(a1,log(likelihood(a0=100,a1)),type = "l")
 
