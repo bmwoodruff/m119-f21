@@ -9,7 +9,7 @@ plot(x,f(x),type ='l')
 sqrt(8)
 
 
-x<- seq(2.828,2.8285,0.0001)
+x<- seq(-10,10,0.1)
 plot(x,f(x),type ='l')
 
 derf <- function(x){
