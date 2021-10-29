@@ -1,22 +1,44 @@
 #devtools::install_github("echasnovski/pdqr")
 library(pdqr)
-
+library(data4led)
 
 f_deterministic <- function(x,a0=2,a1=0.1){a0+a1*x}
 g_stochastic <- function(r,mu=0,sigma=1){1/sqrt(2*pi*sigma)*exp(-1/2*((r-mu)/sigma)^2)}
 
-r <- seq(-3,3,0.001)
-plot(r,g_stochastic(r))
+simulate_deterministic_with_stochastic <- function(x,f_deterministic, g_stochastic){
+  sample_r <- as_r(as_d(g_stochastic))(length(x))
+  plot(x,f_deterministic(x),type = "l")
+  points(x,f_deterministic(x)+sample_r)
+}
 
-n <- 100
-set.seed(123)
-g_sample <- rnorm(n,mean=0,sd=1)
+simulate_deterministic_with_stochastic(
+  x = seq(1,100),
+  function(x){f_deterministic(x,a0=2,a1=0.1)},
+  function(x){g_stochastic(x,mu=0,sigma=2)}
+)
 
 
-x<- seq(1,n,1)
+simulate_deterministic_with_stochastic(
+  x = led_bulb(1,seed=123)$hours,
+  function(x){f_deterministic(x,a0=2,a1=0.1)},
+  function(x){g_stochastic(x,mu=0,sigma=50)}
+)
+
+bulb <- led_bulb(1,seed=123)
+x <- bulb$hours
+length(x)
+sample_r <- as_r(as_d(g_stochastic,mu=0,sigma=100))(length(x))
 plot(x,f_deterministic(x,a0=2,a1=0.1),type = "l")
-points(x,f_deterministic(x)+g_sample)
+points(x,f_deterministic(x)+sample_r)
 
+#r <- seq(-3,3,0.001)
+#plot(r,g_stochastic(r))
+#n <- 100
+#set.seed(123)
+#g_sample <- rnorm(n,mean=0,sd=1)
+#points(x,f_deterministic(x)+g_sample)
+
+#random_g <-as_r(as_d(function(x){g_stochastic(x,mu=0,sigma=1)}))
 
 
 
@@ -30,10 +52,13 @@ hist(as_r(as_d(my_d))(10000))
 
 r_g <- as_r(as_d(my_d))
 hist(as_r(as_d(my_d))(1000000))
-r_g <-as_r(as_d(function(x){g_stochastic(x,mu=3,sigma=1)})
-hist(as_r(as_d(function(x){g_stochastic(x,mu=3,sigma=1)}))(1000))
-g_stochastic
-#
+r_g <-as_r(as_d(function(x){g_stochastic(x,mu=3,sigma=1)}))
+hist(r_g(1000))
+
+
+
+
+
 
 
 
@@ -56,7 +81,7 @@ sum(ti*(yi-100))/sum(ti^2)
 f1 <- function(t,a1){100+a1*t}
 a1 <- 0.0002
 plot(ti,yi)
-lines(ti,f1(xi,a1))
+lines(ti,f1(ti,a1))
 
 
 
