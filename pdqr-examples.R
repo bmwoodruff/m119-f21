@@ -26,4 +26,38 @@ my_d <- function(x) {
 }
 x <- seq(-1,1,0.1)
 plot(x,my_d(x))
-as_d(my_d)
+hist(as_r(as_d(my_d))(10000))
+
+r_g <- as_r(as_d(my_d))
+hist(as_r(as_d(my_d))(1000000))
+r_g <-as_r(as_d(function(x){g_stochastic(x,mu=3,sigma=1)})
+hist(as_r(as_d(function(x){g_stochastic(x,mu=3,sigma=1)}))(1000))
+g_stochastic
+#
+
+
+
+
+
+
+
+#In class stuff
+library(data4led)
+bulb <- led_bulb(1,seed=123)
+ti <- bulb$hours
+yi <- bulb$percent_intensity
+
+sum(ti*(yi-100))
+sum(ti^2)
+
+sum(ti*(yi-100))/sum(ti^2)
+
+
+f1 <- function(t,a1){100+a1*t}
+a1 <- 0.0002
+plot(ti,yi)
+lines(ti,f1(xi,a1))
+
+
+
+
