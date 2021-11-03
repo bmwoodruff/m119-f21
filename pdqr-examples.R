@@ -79,6 +79,47 @@ hist(r_g(1000))
 
 
 
+#How to use this in class. 
+#Given a deterministic model y=f(x), and stochastic model g(r) for the residuals, we should be able to produce something similar to what we observe by sampling residuals (using g), and adding them f(x) for each observed x.  
+#If our model choices are reasonable, then sampling in this fashion should provide us with something reasonably similar to what we observed. 
+library(pdqr)
+library(data4led)
+
+f <- function(x,a0=2,a1=0.1,a2=-0.2){a0+a1*x+a2*x^2}
+g <- function(r,mu=0,sigma=1){1/sqrt(2*pi*sigma)*exp(-1/2*((r-mu)/sigma)^2)}
+
+#We can set a seed to make the sampling reproducible. 
+set.seed(123)
+x = seq(1,10,0.1)
+sample_r <- as_r(as_d(g,mu=0,sigma=1))(length(x))
+
+plot(x,f(x,a0=2,a1=0.1,a2=-0.2),type = "l")
+points(x,f(x,a0=2,a1=0.1,a2=-0.2)+sample_r,pch=1)
+
+plot(x,f(x,a0=2,a1=2,a2=0),type = "l")
+points(x,f(x,a0=2,a1=2,a2=0)+sample_r,pch=1)
+
+#Now let's actually grab the data from a bulb 
+bulb <- led_bulb(1,seed=123)
+t <- bulb$hours
+y <- bulb$percent_intensity
+sample_r <- as_r(as_d(g,mu=0,sigma=1))(length(x))
+plot(t,f(t,a0=100,a1=0.000524,a2=0),type = "l")
+points(t,y,pch = 16)
+points(t,f(t,a0=100,a1=0.0005,a2=0)+sample_r,col = "red", pch=3)
+#Run the last 4 lines of code over and over again a few times. 
+#Or, we put the last 4 lines of code in a function, and then just call that function several times. 
+draw_simulation <- function(){
+  sample_r <- as_r(as_d(g,mu=0,sigma=1))(length(x))
+  plot(t,f(t,a0=100,a1=0.000524,a2=0),type = "l")
+  points(t,y,pch = 16)
+  points(t,f(t,a0=100,a1=0.0005,a2=0)+sample_r,col = "red", pch=3)
+}
+draw_simulation()
+draw_simulation()
+draw_simulation()
+draw_simulation()
+#What do you notice?
 
 
 
