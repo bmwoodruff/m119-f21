@@ -2,34 +2,54 @@
 library(pdqr)
 library(data4led)
 
-f_deterministic <- function(x,a0=2,a1=0.1){a0+a1*x}
-g_stochastic <- function(r,mu=0,sigma=1){1/sqrt(2*pi*sigma)*exp(-1/2*((r-mu)/sigma)^2)}
+f <- function(x,a0=2,a1=0.1,a2=-0.2){a0+a1*x+a2*x^2}
+g <- function(r,mu=0,sigma=1){1/sqrt(2*pi*sigma)*exp(-1/2*((r-mu)/sigma)^2)}
 
-simulate_deterministic_with_stochastic <- function(x,f_deterministic, g_stochastic){
-  sample_r <- as_r(as_d(g_stochastic))(length(x))
-  plot(x,f_deterministic(x),type = "l")
-  points(x,f_deterministic(x)+sample_r)
+x = seq(1,10,0.1)
+set.seed(123)
+
+sample_r <- as_r(as_d(g,mu=0,sigma=1))(length(x))
+
+plot(x,f(x,a0=2,a1=0.1,a2=-0.2),type = "l")
+points(x,f(x,a0=2,a1=0.1,a2=-0.2)+sample_r,pch=1)
+
+plot(x,f(x,a0=2,a1=2,a2=0),type = "l")
+points(x,f(x,a0=2,a1=2,a2=0)+sample_r,pch=1)
+
+
+x <- led_bulb(1,seed=123)$hours
+sample_r <- as_r(as_d(g,mu=0,sigma=.1))(length(x))
+plot(x,f(x,a0=100,a1=0.0005,a2=0),type = "l")
+points(x,f(x,a0=100,a1=0.0005,a2=0)+sample_r)
+
+
+
+
+simulate_deterministic_with_stochastic <- function(x,f,g){
+  sample_r <- as_r(as_d(g))(length(x))
+  plot(x,f(x),type = "l")
+  points(x,f(x)+sample_r)
 }
 
 simulate_deterministic_with_stochastic(
   x = seq(1,100),
-  function(x){f_deterministic(x,a0=2,a1=0.1)},
-  function(x){g_stochastic(x,mu=0,sigma=2)}
+  function(x){f(x,a0=2,a1=0.1,a2=0)},
+  function(x){g(x,mu=0,sigma=2)}
 )
 
 
 simulate_deterministic_with_stochastic(
   x = led_bulb(1,seed=123)$hours,
-  function(x){f_deterministic(x,a0=2,a1=0.1)},
-  function(x){g_stochastic(x,mu=0,sigma=50)}
+  function(x){f(x,a0=1,a1=0.0003,a2=-0.0000000924)},
+  function(x){g(x,mu=0,sigma=0.1)}
 )
 
 bulb <- led_bulb(1,seed=123)
 x <- bulb$hours
 length(x)
-sample_r <- as_r(as_d(g_stochastic,mu=0,sigma=100))(length(x))
-plot(x,f_deterministic(x,a0=2,a1=0.1),type = "l")
-points(x,f_deterministic(x)+sample_r)
+sample_r <- as_r(as_d(g,mu=0,sigma=1))(length(x))
+plot(x,f(x,a0=100,a1=0.000524,a2=0),type = "l")
+points(x,f(x,a0=100,a1=0.000524,a2=0)+sample_r)
 
 #r <- seq(-3,3,0.001)
 #plot(r,g_stochastic(r))
@@ -52,7 +72,7 @@ hist(as_r(as_d(my_d))(10000))
 
 r_g <- as_r(as_d(my_d))
 hist(as_r(as_d(my_d))(1000000))
-r_g <-as_r(as_d(function(x){g_stochastic(x,mu=3,sigma=1)}))
+r_g <-as_r(as_d(function(x){g(x,mu=3,sigma=1)}))
 hist(r_g(1000))
 
 
