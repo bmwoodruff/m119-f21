@@ -30,7 +30,7 @@ draw_rect_approx <- function(f,a,b,num_rectangles, method = "mid"){
 }
 
 
-
+#Let's start by finding the area under g from 1 to 4. We'll give a visual first, before increasing the number of rectangles to get a good approximation. 
 g <- function(x){x^2*exp(-x)}
 a <- 1
 b <- 4
@@ -61,7 +61,7 @@ EV
 Var <- sum((xi-EV)^2*f(xi)*dx)
 Var
 
-#Compute the probability P(X <= 3)
+#Compute the probability P(X <= 3) So find the area under f to the left of 3. 
 a <- 1
 b <- 3 #We adjust the upper bound to be 3, instead of 4. 
 n <- 10000000
@@ -69,7 +69,7 @@ dx <- (b-a)/n
 xi <- seq(a+dx,b,dx)  
 sum(f(xi)*dx)
 
-#Compute the probability P(2< X <= 3)
+#Compute the probability P(2< X <= 3). So find the area under f from 2 to 3. 
 a <- 2 #Adjust the lower bound
 b <- 3 
 n <- 10000000
