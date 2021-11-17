@@ -1,26 +1,25 @@
-#devtools::install_github("echasnovski/pdqr")
+#devtools::install_github("echasnovski/pdqr")  #Run this line once to install the pdqr package. 
 library(pdqr)
-library(data4led)
 
 f <- function(x,a0=2,a1=0.1,a2=-0.2){a0+a1*x+a2*x^2}
 g <- function(r,mu=0,sigma=1){1/sqrt(2*pi*sigma)*exp(-1/2*((r-mu)/sigma)^2)}
 
 x = seq(1,10,0.1)
 set.seed(123)
+sample_r <-as_r(as_d(g,mu=0,sigma=1))(length(x))
 
-sample_r <- as_r(as_d(g,mu=0,sigma=1))(length(x))
-
+par(mar=c(2.5,2.5,0.25,0.25))
 plot(x,f(x,a0=2,a1=0.1,a2=-0.2),type = "l")
 points(x,f(x,a0=2,a1=0.1,a2=-0.2)+sample_r,pch=1)
 
 plot(x,f(x,a0=2,a1=2,a2=0),type = "l")
 points(x,f(x,a0=2,a1=2,a2=0)+sample_r,pch=1)
 
-
+library(data4led)
 x <- led_bulb(1,seed=123)$hours
 sample_r <- as_r(as_d(g,mu=0,sigma=.1))(length(x))
-plot(x,f(x,a0=100,a1=0.0005,a2=0),type = "l")
-points(x,f(x,a0=100,a1=0.0005,a2=0)+sample_r)
+plot(x,f(x,a0=100,a1=0.001190918,a2=-1.743522e-07),type = "l")
+points(x,f(x,a0=100,a1=0.001190918,a2=-1.743522e-07)+sample_r)
 
 
 
@@ -100,25 +99,29 @@ plot(x,f(x,a0=2,a1=2,a2=0),type = "l")
 points(x,f(x,a0=2,a1=2,a2=0)+sample_r,pch=1)
 
 #Now let's actually grab the data from a bulb 
-bulb <- led_bulb(1,seed=123)
+library(pdqr)
+library(data4led)
+bulb <- led_bulb(1,seed = 123)
 t <- bulb$hours
 y <- bulb$percent_intensity
-sample_r <- as_r(as_d(g,mu=0,sigma=1))(length(x))
-plot(t,f(t,a0=100,a1=0.000524,a2=0),type = "l")
-points(t,y,pch = 16)
-points(t,f(t,a0=100,a1=0.0005,a2=0)+sample_r,col = "red", pch=3)
+f <- function(x,a0 = 100, a1 = 0.001190918, a2 = -1.743522e-07){a0+a1*x+a2*x^2}
+g <- function(r,mu=0,sigma=1){1/sqrt(2*pi*sigma)*exp(-1/2*((r-mu)/sigma)^2)}
+sample_r <- as_r(as_d(g,mu = 0, sigma = 1))(length(t))
+par(mar=c(2.5,2.5,0.25,0.25))
+plot(t, y, pch = 16)
+lines(t, f(t), type = "l")
+points(t, f(t) + sample_r,col = "red", pch = 3)
 #Run the last 4 lines of code over and over again a few times. 
 #Or, we put the last 4 lines of code in a function, and then just call that function several times. 
-draw_simulation <- function(){
-  sample_r <- as_r(as_d(g,mu=0,sigma=1))(length(x))
-  plot(t,f(t,a0=100,a1=0.000524,a2=0),type = "l")
+draw_simulation <- function(mu = 0, sigma = 1, a0=100,a1=0.001190918,a2=-1.743522e-07){
+  sample_r <- as_r(as_d(g,mu = mu, sigma = sigma))(length(t))
+  plot(t,f(t,a0 = a0,a1 = a1,a2 = a2),type = "l")
   points(t,y,pch = 16)
-  points(t,f(t,a0=100,a1=0.0005,a2=0)+sample_r,col = "red", pch=3)
+  points(t,f(t,a0 = a0,a1 = a1,a2 = a2) + sample_r,col = "red", pch = 3)
 }
-draw_simulation()
-draw_simulation()
-draw_simulation()
-draw_simulation()
+draw_simulation(mu = 0,sigma = 1)
+draw_simulation(mu = 0,sigma = 0.5)
+draw_simulation(mu = 0,sigma = 0.2)
 #What do you notice?
 
 
