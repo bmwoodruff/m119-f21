@@ -60,7 +60,7 @@ The map below is a topographical map of a location at Crater's of the Moon Natio
     \filldraw (6,2) circle (1pt) node[below right]{$E$}; 
 \end{tikzpicture}
 \end{center}
-The contours on the map represent a function $z=f(x,y)$, where $z$ is the elevation in meters, with contours drawn at 20 ft increments.  Each grid line represents 1000 ft. Suppose a hiker is currently at $A$. The hiker wants to get to $B$. Discuss the answers to each question below with your group.
+The contours on the map represent a function $z=f(x,y)$, where $z$ is the elevation in feet, with contours drawn at 20 ft increments.  Each grid line represents 1000 ft. Suppose a hiker is currently at $A$. The hiker wants to get to $B$. Discuss the answers to each question below with your group.
 
 \begin{enumerate}
  \item What is the elevation 2000 ft east and 3000 ft north, so at $(2,3)$? In other words give $f(2,3)$.  
@@ -74,9 +74,9 @@ The contours on the map represent a function $z=f(x,y)$, where $z$ is the elevat
  \item Plan a route to get from point $A$ to point $B$ that passes through one other point (call it $F$), with straight lines connecting $A$ and $B$ to $F$, avoiding steep rises and falls. Draw this route on your map. 
  \item There are three other points on the map ($C$, $D$, and $E$).  At each of these points, we'll estimate the slope of the hill in two different directions, namely moving east or north, and then use these estimates to construct a vector, called the gradient, that we can use to help us navigate. 
  \begin{enumerate}
-  \item At point $C$, notice that moving right $\Delta x \approx 100$ m (so 0.1 km) doesn't really change the elevation much at all (maybe there is a slight drop, but very small). This suggests that $\Delta z\approx 0$ and so the slope when moving east is $\ds\dfrac{\Delta z}{\Delta x}\approx\frac{0}{100}=0$. 
-  \item At point $C$, moving north about $\Delta y = 100$ m gets us to the next contour, which is a drop of $\Delta z \approx -20$ m.  This gives a slope of $\ds\dfrac{\Delta z}{\Delta y} \approx \frac{-20}{100} = -0.2$, a 20\% downhill grade. 
-  \item Above we estimated $\ds\dfrac{\Delta z}{\Delta x}\approx\frac{0}{100}=0$ and $\ds\dfrac{\Delta z}{\Delta y} \approx \frac{-20}{100} = -0.2$. We can draw an arrow starting from point $C$ that moves right 0 units and up $-0.2$ units (so the arrow points straight down). This vector we call the gradient of $f$ at $C$ and write it symbolically as $$\vec \nabla f(C) = \left<0,-0.2\right> = 0{\bf i}-0.2{\bf j} = 0\vec i-0.2\vec j.$$
+  \item At point $C$, notice that moving right $\Delta x \approx 100$ ft (so .1 of 1000 ft) doesn't really change the elevation much at all (maybe there is a slight drop, but very small). This suggests that $\Delta z\approx 0$ and so the slope when moving east is $\ds\dfrac{\Delta z}{\Delta x}\approx\frac{0}{100}=0$. 
+  \item At point $C$, moving north about $\Delta y = 100$ ft gets us to the next contour, which is a drop of $\Delta z \approx -20$ ft.  This gives a slope of $\ds\dfrac{\Delta z}{\Delta y} \approx \frac{-20}{100} = -0.2$, a 20\% downhill grade. 
+  \item Above we estimated $\ds\dfrac{\Delta z}{\Delta x}\approx\frac{0}{100}=0$ and $\ds\dfrac{\Delta z}{\Delta y} \approx \frac{-20}{100} = -0.2$. We can draw an arrow starting from point $C$ that moves right 0 units and up $-0.2$ units (so the arrow points straight south). This vector we call the gradient of $f$ at $C$ and write it symbolically as $$\vec \nabla f(C) = \left<0,-0.2\right> = 0{\bf i}-0.2{\bf j} = 0\vec i-0.2\vec j.$$
   \item  Estimate $\dfrac{\Delta z}{\Delta x}$ at point $D$. 
   \item  Estimate $\dfrac{\Delta z}{\Delta y}$ at point $D$. 
   \item  Draw an arrow starting at $D$ that moves right $\dfrac{\Delta z}{\Delta x}$ units and up $\dfrac{\Delta z}{\Delta y}$ units, in other words draw the gradient of $f$ at $D$, written as $\vec \nabla f(D)$
